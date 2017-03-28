@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Hero } from './hero';
 import { HeroService } from '../hero.service';
+import { Router }   from '@angular/router';
 
 @Component({
   selector: 'app-hero',
@@ -11,9 +12,8 @@ import { HeroService } from '../hero.service';
 export class HeroComponent implements OnInit {
   selectedHero: Hero;
   heroes: Hero[];
-  title = 'Tour of Heroes';
 
-  constructor(private heroService: HeroService) { }
+  constructor(private heroService: HeroService, private router: Router) { }
   ngOnInit() {
     this.getHeroes();
     // this.getHeroesSlowly(); //We can simulate a slow connection
@@ -30,6 +30,10 @@ export class HeroComponent implements OnInit {
 
   onSelect(hero: Hero): void {
     this.selectedHero = hero;
+  }
+
+  gotoDetail(): void {
+    this.router.navigate(['/detail', this.selectedHero.id]);
   }
 
 }
